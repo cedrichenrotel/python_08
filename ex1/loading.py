@@ -1,23 +1,21 @@
-#!/usr/bin/env python3
-
 # ************************************************************************* #
 #                                                                           #
 #                                                      :::      ::::::::    #
 #  loading.py                                        :+:      :+:    :+:    #
 #                                                  +:+ +:+         +:+      #
-#  By: cehenrot <cehenrot@student.42lyon.fr>     +#+  +:+       +#+         #
+#  By: cehenrot <cehenrot@student.42.fr>         +#+  +:+       +#+         #
 #                                              +#+#+#+#+#+   +#+            #
 #  Created: 2026/04/01 15:14:09 by cehenrot        #+#    #+#               #
-#  Updated: 2026/04/01 20:21:42 by cehenrot        ###   ########.fr        #
+#  Updated: 2026/04/02 13:53:52 by cehenrot        ###   ########.fr        #
 #                                                                           #
 # ************************************************************************* #
 
 try:
-    import random
-    import importlib
     import numpy as np
     import pandas as pd
     import matplotlib.pyplot as plt
+    import importlib
+
 except ImportError as e:
     print(f"[ERROR] package not found: {e}")
 
@@ -25,16 +23,47 @@ except ImportError as e:
 def checking_dependencies() -> None:
     packages = [
         'pandas',
-        'numpy',
+        'requests',
         'matplotlib'
     ]
 
     for item in packages:
-        module = importlib.import_module(item)
-        version = module.__version__
-        print(f"[OK] {item} {version}")
+        try:
+            module = importlib.import_module(item)
+            version = module.__version__
+            print(f"[OK] {item} {version}")
+        except ImportError as e:
+            print(f"[ERROR] checking_independance: package -> {e} [KO]")
 
-    np.random.randn(1000)
+
+def generate_data() -> np.ndarray:
+    data = np.random.randn(1000)
+    return data
+
+
+def analyze_data(data: np.ndarray) -> pd.DataFrame:
+    if data is None or not isinstance(data, np.ndarray):
+        print("invalid data")
+        return None
+    try:
+        df = pd.DataFrame(data, columns=["matrix_signal"])
+        return df
+    except Exception as e:
+        print(f"[ERROR] analyze_data: {e}")
+    return None
+
+
+def data_visualisation(df: pd.DataFrame) -> None:
+    name_png = "matrix\\_matrix_analysis.png"
+    try:
+        plt.hist(df['matrix_signal'], bins=30)
+        plt.savefig(name_png)
+    except (KeyError, AttributeError) as e:
+        print(f"[ERROR] data_visual: {e} [KO]")
+        return
+    print("\nAnalysis complete!")
+    print(f"Results saved to: {name_png}")
+    return
 
 
 def main() -> None:
@@ -43,6 +72,11 @@ def main() -> None:
     checking_dependencies()
     print("\nAnalyzing Matrix data...")
     print("Processing 1000 data points...")
+    data = generate_data()
+    rst = analyze_data(data)
+
+    print("Generating visualization...")
+    data_visualisation(rst)
 
 
 if __name__ == "__main__":
