@@ -3,28 +3,30 @@
 #                                                      :::      ::::::::    #
 #  loading.py                                        :+:      :+:    :+:    #
 #                                                  +:+ +:+         +:+      #
-#  By: cehenrot <cehenrot@student.42.fr>         +#+  +:+       +#+         #
+#  By: cehenrot <cehenrot@student.42lyon.fr>     +#+  +:+       +#+         #
 #                                              +#+#+#+#+#+   +#+            #
 #  Created: 2026/04/01 15:14:09 by cehenrot        #+#    #+#               #
-#  Updated: 2026/04/02 14:13:16 by cehenrot        ###   ########.fr        #
+#  Updated: 2026/04/03 09:56:13 by cehenrot        ###   ########.fr        #
 #                                                                           #
 # ************************************************************************* #
 
+import sys
 try:
     import numpy as np
     import pandas as pd
     import matplotlib.pyplot as plt
     import importlib
-
 except ImportError as e:
     print(f"[ERROR] package not found: {e}")
+    sys.exit(1)
 
 
 def checking_dependencies() -> None:
     packages = [
         'pandas',
         'requests',
-        'matplotlib'
+        'matplotlib',
+        'numpy'
     ]
 
     for item in packages:
@@ -54,7 +56,7 @@ def analyze_data(data: np.ndarray) -> pd.DataFrame:
 
 
 def data_visualisation(df: pd.DataFrame) -> None:
-    name_png = "matrix\\_matrix_analysis.png"
+    name_png = "matrix_matrix_analysis.png"
     try:
         plt.hist(df['matrix_signal'], bins=30)
         plt.savefig(name_png)
@@ -69,6 +71,7 @@ def data_visualisation(df: pd.DataFrame) -> None:
 def main() -> None:
     print("LOADING STATUS: Loading programs...")
 
+    print("\nChecking dependencies:")
     checking_dependencies()
     print("\nAnalyzing Matrix data...")
     print("Processing 1000 data points...")
