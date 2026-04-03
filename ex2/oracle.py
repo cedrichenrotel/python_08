@@ -6,7 +6,7 @@
 #  By: cehenrot <cehenrot@student.42lyon.fr>     +#+  +:+       +#+         #
 #                                              +#+#+#+#+#+   +#+            #
 #  Created: 2026/04/02 14:46:16 by cehenrot        #+#    #+#               #
-#  Updated: 2026/04/03 10:52:09 by cehenrot        ###   ########.fr        #
+#  Updated: 2026/04/03 14:06:53 by cehenrot        ###   ########.fr        #
 #                                                                           #
 # ************************************************************************* #
 
@@ -41,7 +41,11 @@ def load_var() -> None:
         if value is None:
             print(f"[WARNING] value: {key} is None")
         else:
-            print(f"{text.capitalize()}: {value}")
+            sensitive = ["API_KEY", "DATABASE_URL"]
+            if mode == "production" and key in sensitive:
+                print(f"{text.capitalize()}: ****hidden****")
+            else:
+                print(f"{text.capitalize()}: {value}")
 
 
 def main() -> None:
