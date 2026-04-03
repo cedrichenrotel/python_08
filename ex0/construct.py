@@ -8,18 +8,13 @@
 #  By: cehenrot <cehenrot@student.42lyon.fr>     +#+  +:+       +#+         #
 #                                              +#+#+#+#+#+   +#+            #
 #  Created: 2026/04/01 08:57:20 by cehenrot        #+#    #+#               #
-#  Updated: 2026/04/01 19:07:11 by cehenrot        ###   ########.fr        #
+#  Updated: 2026/04/03 11:53:51 by cehenrot        ###   ########.fr        #
 #                                                                           #
 # ************************************************************************* #
 
-try:
-
-    import sys
-    import os
-    import site
-
-except ImportError as e:
-    print(f"[ERROR] 'import site’ module not available => {e}")
+import sys
+import os
+import site
 
 
 def check_execution_env() -> bool:
@@ -37,7 +32,7 @@ def current_status() -> None:
         print(f"Environment Path: {sys.prefix}")
 
         print("\nSUCCESS: You're in an isolated environment!")
-        print("Safe to install packages without affecting"
+        print("Safe to install packages without affecting "
               "the global system.")
 
         print("Package installation path")
@@ -52,15 +47,14 @@ def current_status() -> None:
         print("\nTo enter the construct, run:"
               "\npython -m venv matrix_env"
               "\nsource matrix_env/bin/activate # On Unix"
-              "\nmatrix_env"
-              "\nScripts"
-              "\nactivate # On Windows")
+              "\nmatrix_env\\Scripts\\activate # On Windows")
 
         print("\nThen run this program again.")
 
 
 def is_venv() -> None:
     print("MATRIX STATUS: Welcome to the construct")
+    print()
     current_status()
 
 
