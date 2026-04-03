@@ -6,7 +6,7 @@
 #  By: cehenrot <cehenrot@student.42lyon.fr>     +#+  +:+       +#+         #
 #                                              +#+#+#+#+#+   +#+            #
 #  Created: 2026/04/01 15:14:09 by cehenrot        #+#    #+#               #
-#  Updated: 2026/04/03 09:56:13 by cehenrot        ###   ########.fr        #
+#  Updated: 2026/04/03 09:59:47 by cehenrot        ###   ########.fr        #
 #                                                                           #
 # ************************************************************************* #
 
@@ -43,7 +43,7 @@ def generate_data() -> np.ndarray:
     return data
 
 
-def analyze_data(data: np.ndarray) -> pd.DataFrame:
+def analyze_data(data: np.ndarray) -> pd.DataFrame | None:
     if data is None or not isinstance(data, np.ndarray):
         print("invalid data")
         return None
